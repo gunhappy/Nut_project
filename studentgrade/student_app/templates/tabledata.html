@@ -6,28 +6,41 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   {% load static %}
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   <link rel="stylesheet" type="text/css" href="{% static 'student_app/styles.css' %}" />
-  <title>Document</title>
+  <title>ข้อมูลนักศึกษาทั้งหมด</title>
 </head>
 <body>
-  <div class="container">
-     <div class="page-header">
-       <h1>แอพพลิเคชั่นคำนวณผลการเรียนของนักเรียน</h1>
-     </div>
-   </div>
-   <nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav">
-          <li><a href="/">เพิ่มข้อมูลนักเรียน</a></li>
-          <li class="active"><a href="/table">ดูตารางข้อมูลนักเรียนทั้งหมด</a></li>
-        </ul>
-      </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
-  </nav>
+  <nav class="navbar navbar-inverse">
+   <div class="container-fluid">
+     <div class="navbar-header">
+    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    </div>
+     <!-- Collect the nav links, forms, and other content for toggling -->
+     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+       <ul class="nav navbar-nav">
+         <li><a href="/index">หน้าแรก</a></li>
+         <li><a href="/addstudent">เพิ่มข้อมูลนักศึกษา</a></li>
+         <li><a href="/student">ข้อมูลนักศึกษา</a></li>
+         <li><a href="/attendance">ข้อมูลการเข้าเรียน</a></li>
+         <li><a href="/scores">คะแนนของนักศึกษา</a></li>
+         <li class="active"><a href="/table">ข้อมูลนักศึกษาทั้งหมด</a></li>
+       </ul>
+       <ul class="nav navbar-nav navbar-right">
+         <li><a href="/logout">ลงชื่อออก</a></li>
+       </ul>
+     </div><!-- /.navbar-collapse -->
+
+   </div><!-- /.container-fluid -->
+ </nav>
     <div class="container">
-      <h2>ข้อมูลนักเรียนทั้งหมด</h2>
+      <h2>ข้อมูลนักศึกษาทั้งหมด</h2>
       <br>
       <table class="table table-striped">
         <!-- table header -->
@@ -35,65 +48,47 @@
           <th>รหัสนิสิต</th>
           <th>ชื่อจริง</th>
           <th>นามสกุล</th>
-          <th>วันที่</th>
           <th>เซค</th>
-          <th>ชื่อวิชา</th>
-          <th>อาจารย์ผู้สอน</th>
+          <th>คะแนนจิตพิสัย</th>
           <th>คะแนนเข้าเรียน</th>
           <th>คะแนนเก็บ</th>
-          <th>คะแนนสอบ</th>
+          <th>คะแนนสอบกลางภาค</th>
+          <th>คะแนนสอบปลายภาค</th>
           <th>คะแนนรวม</th>
           <th>เกรด</th>
         </tr>
         <!-- iterating inserting row in table -->
         {% for student in student_list %}
           <tr>
-            <form action="{% url 'student_app:update' %}" method="post">
-              {% csrf_token %}
-                {% if update_student == student %}
-                  <td><input id="update_input" type="text" name="student_id" value="{{ student.student_id }}" class="form-control" ></td>
-                  <td><input id="update_input" type="text" name="firstname" value="{{ student.firstname }}" class="form-control" ></td>
-                  <td><input id="update_input" type="text" name="lastname" value="{{ student.lastname }}" class="form-control" ></td>
-                  <td><input type="date" name="date_regis" value="{{ student.date_regis|date:"Y-m-d" }}" class="form-control" ></td>
-                  <td><input id="update_input" type="text" name="section" value="{{ student.section }}" class="form-control" ></td>
-                  <td><input id="update_input" type="text" name="subject" value="{{ student.subject }}" class="form-control" ></td>
-                  <td><input id="update_input" type="text" name="teacher" value="{{ student.teacher }}" class="form-control" ></td>
-                  <td><input id="update_input_number" type="number" name="attendance_point" value="{{ student.attendance_point }}" class="form-control" ></td>
-                  <td><input id="update_input_number" type="number" name="collect_point" value="{{ student.collect_point }}" class="form-control" ></td>
-                  <td><input id="update_input_number" type="number" name="test_point" value="{{ student.test_point }}" class="form-control" ></td>
-                  <td></td>
-                  <td></td>
-                {% else %}
-                  <td>{{ student.student_id }}</td>
-                  <td>{{ student.firstname }}</td>
-                  <td>{{ student.lastname }}</td>
-                  <td>{{ student.date_regis|date:"Y-m-d" }}</td>
-                  <td>{{ student.section }}</td>
-                  <td>{{ student.subject }}</td>
-                  <td>{{ student.teacher }}</td>
-                  <td>{{ student.attendance_point }}</td>
-                  <td>{{ student.collect_point }}</td>
-                  <td>{{ student.test_point }}</td>
-                  <td>{{ student.attendance_point|add:student.collect_point|add:student.test_point }}</td>
-                  {% if student.attendance_point|add:student.collect_point|add:student.test_point < 50 %}
+                  <td>{{ student.student.student_id }}</td>
+                  <td>{{ student.student.firstname }}</td>
+                  <td>{{ student.student.lastname }}</td>
+                  <td>{{ student.student.section }}</td>
+                  <td>{{ student.scores.mental_point }}</td>
+                  <td>{{ student.scores.attendance_point }}</td>
+                  <td>{{ student.scores.collect_point }}</td>
+                  <td>{{ student.scores.midterm_point }}</td>
+                  <td>{{ student.scores.final_point }}</td>
+                  <td>{{ student.scores.mental_point|add:student.scores.attendance_point|add:student.scores.collect_point|add:student.scores.midterm_point|add:student.scores.final_point }}</td>
+                  {% if student.scores.mental_point|add:student.scores.attendance_point|add:student.scores.collect_point|add:student.scores.midterm_point|add:student.scores.final_point < 50 %}
                   <td>F</td>
                   {% else %}
-                      {% if student.attendance_point|add:student.collect_point|add:student.test_point < 55 %}
+                      {% if student.scores.mental_point|add:student.scores.attendance_point|add:student.scores.collect_point|add:student.scores.midterm_point|add:student.scores.final_point < 55 %}
                       <td>D</td>
                       {% else %}
-                        {% if student.attendance_point|add:student.collect_point|add:student.test_point < 60 %}
+                        {% if student.scores.mental_point|add:student.scores.attendance_point|add:student.scores.collect_point|add:student.scores.midterm_point|add:student.scores.final_point < 60 %}
                         <td>D+</td>
                         {% else %}
-                          {% if student.attendance_point|add:student.collect_point|add:student.test_point < 65 %}
+                          {% if student.scores.mental_point|add:student.scores.attendance_point|add:student.scores.collect_point|add:student.scores.midterm_point|add:student.scores.final_point < 65 %}
                           <td>C</td>
                           {% else %}
-                            {% if student.attendance_point|add:student.collect_point|add:student.test_point < 70 %}
+                            {% if student.scores.mental_point|add:student.scores.attendance_point|add:student.scores.collect_point|add:student.scores.midterm_point|add:student.scores.final_point < 70 %}
                             <td>C+</td>
                             {% else %}
-                              {% if student.attendance_point|add:student.collect_point|add:student.test_point < 75 %}
+                              {% if student.scores.mental_point|add:student.scores.attendance_point|add:student.scores.collect_point|add:student.scores.midterm_point|add:student.scores.final_point < 75 %}
                               <td>B</td>
                               {% else %}
-                                {% if student.attendance_point|add:student.collect_point|add:student.test_point < 80 %}
+                                {% if student.scores.mental_point|add:student.scores.attendance_point|add:student.scores.collect_point|add:student.scores.midterm_point|add:student.scores.final_point < 80 %}
                                   <td>B+</td>
                                 {% else %}
                                   <td>A</td>
@@ -104,18 +99,12 @@
                         {% endif %}
                       {% endif %}
                   {% endif %}
-                {% endif %}
-                <td><button name="student_id_update" value="{{ student.id }}" class="btn btn-info">Update</button></td>
-            </form>
-            {% if update_student != student %}
-            <td>
-              <form action="{% url 'student_app:delete' %}" method="post">
-                {% csrf_token %}
-                <button name="id" value="{{ student.id }}" class="btn btn-danger">Delete</button>
-              </form>
-            </td>
-            {% endif %}
-          </tr>
+                  <td>
+                    <form action="{% url 'student_app:delete' %}" method="post">
+                      {% csrf_token %}
+                      <button name="student_id" value="{{ student.student.student_id }}" class="btn btn-danger">Delete</button>
+                    </form>
+                  </td>
         {% endfor %}
       </table>
     </div>

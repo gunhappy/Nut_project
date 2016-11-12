@@ -5,87 +5,46 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   {% load static %}
   <link rel="stylesheet" type="text/css" href="{% static 'student_app/styles.css' %}" />
+  <title>หน้าแรก</title>
 </head>
 <body>
-  <div class="container">
-     <div class="page-header">
-       <h1>แอพพลิเคชั่นคำนวณผลการเรียนของนักเรียน</h1>
-     </div>
-   </div>
    <nav class="navbar navbar-inverse">
     <div class="container-fluid">
+      <div class="navbar-header">
+     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+       <span class="sr-only">Toggle navigation</span>
+       <span class="icon-bar"></span>
+       <span class="icon-bar"></span>
+       <span class="icon-bar"></span>
+     </button>
+     </div>
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-          <li class="active"><a href="/">เพิ่มข้อมูลนักเรียน</a></li>
-          <li><a href="/table">ดูตารางข้อมูลนักเรียนทั้งหมด</a></li>
+          <li class="active"><a href="/index">หน้าแรก</a></li>
+          <li><a href="/addstudent">เพิ่มข้อมูลนักศึกษา</a></li>
+          <li><a href="/student">ข้อมูลนักศึกษา</a></li>
+          <li><a href="/attendance">ข้อมูลการเข้าเรียน</a></li>
+          <li><a href="/scores">คะแนนของนักศึกษา</a></li>
+          <li><a href="/table">ข้อมูลนักศึกษาทั้งหมด</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="/logout">ลงชื่อออก</a></li>
         </ul>
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
   </nav>
-     <div class="container">
-       <h2>กรุณาป้อนข้อมูลนักเรียน</h2><br>
-       <form action="{% url 'student_app:insert' %}" method="POST" class="form-horizontal">
-         {% csrf_token %}
-         <div class="form-group">
-           <label for="student_id" class="col-sm-2 control-label">รหัสนิสิต</label>
-           <div class="col-sm-4">
-             <input type="text" name="student_id" id="student_id"  class="form-control" placeholder="กรุณากรอกรหัสนิสิต ...">
-           </div>
-         </div>
-         <div class="form-group">
-           <label  for="firstname" class="col-sm-2 control-label">ชื่อจริง</label>
-           <div class="col-sm-3">
-             <input type="text" name="firstname" id="firstname"   class="form-control" placeholder="กรุณากรอกชื่อจริง ...">
-           </div>
-           <label  for="lastname" class="col-sm-1 control-label">นามสกุล</label>
-           <div class="col-sm-3">
-             <input type="text" name="lastname" id="lastname"  class="form-control" placeholder="กรุณากรอกนามสกุล ...">
-           </div>
-         </div>
-         <div class="form-group">
-           <label  for="date_regis"  class="col-sm-2 control-label">วันที่</label>
-           <div class="col-sm-4">
-             <input type="date" name="date_regis" id="date_regis"  class="form-control">
-           </div>
-           <label  for="section" class="col-sm-1 control-label">เซค</label>
-           <div class="col-sm-3">
-             <input type="text" name="section" id="section"  class="form-control" placeholder="กรุณากรอกหมายเลขเซค ..." >
-           </div>
-         </div>
-         <div class="form-group">
-           <label  for="subject" class="col-sm-2 control-label">ชื่อวิชา</label>
-           <div class="col-sm-3">
-             <input type="text" name="subject" id="subject"  class="form-control" placeholder="กรุณากรอกชื่อวิชา ..." >
-           </div>
-           <label  for="teacher" class="col-sm-2 control-label">อาจารย์ผู้สอน</label>
-           <div class="col-sm-3">
-             <input type="text" name="teacher" id="teacher"  class="form-control" placeholder="กรุณากรอกชื่ออาจารย์ผู้สอน ..." >
-           </div>
-         </div>
-         <div class="form-group">
-           <label  for="attendance_point" class="col-sm-2 control-label">คะแนนเข้าเรียน</label>
-           <div class="col-sm-2">
-             <input type="number" name="attendance_point" id="attendance_point"  class="form-control" placeholder="0">
-           </div>
-           <label  for="collect_point" class="col-sm-2 control-label">คะแนนเก็บ</label>
-           <div class="col-sm-2">
-             <input type="number" name="collect_point" id="collect_point"  class="form-control" placeholder="0">
-           </div>
-           <label  for="test_point" class="col-sm-2 control-label">คะแนนสอบ</label>
-           <div class="col-sm-2">
-             <input type="number" name="test_point" id="test_point"  class="form-control" placeholder="0">
-           </div>
-         </div>
-         <br>
-         <div class="form-group">
-           <div class="col-sm-offset-2 col-sm-10">
-             <input type="submit" value="ยืนยัน" class="btn btn-primary">
-           </div>
-         </div>
-       </form>
-     </div>
+  <div class="container text-center">
+    <br><br>
+    <a href="/addstudent" class="btn btn-primary" id="mainmenu">เพิ่มข้อมูลนักศึกษา</a><br><br>
+    <a href="/student" class="btn btn-primary" id="mainmenu">ดูข้อมูลนักศึกษา</a><br><br>
+    <a href="/attendance" class="btn btn-primary" id="mainmenu">ข้อมูลการเข้าเรียน</a><br><br>
+    <a href="/scores" class="btn btn-primary" id="mainmenu">คะแนนของนักศึกษา</a><br><br>
+    <a href="/table" class="btn btn-primary" id="mainmenu">ข้อมูลนักศึกษาทั้งหมด</a>
+  </div>
 </body>
 </html>

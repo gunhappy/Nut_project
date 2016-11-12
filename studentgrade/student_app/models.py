@@ -18,13 +18,13 @@ class Student(models.Model):
 
 class Attendance(models.Model):
     student_id = models.ForeignKey(Student)
-    attend_times = models.IntegerField(default=None)
-    absent_times = models.IntegerField(default=None)
+    attend_times = models.IntegerField(default=0)
+    absent_times = models.IntegerField(default=0)
 
 class Scores(models.Model):
     student_id = models.ForeignKey(Student)
-    attendance_point = models.IntegerField(default=None)
-    mental_point = models.IntegerField(default=None)
-    collect_point = models.IntegerField(default=None)
-    midterm_point = models.IntegerField(default=None)
-    final_point = models.IntegerField(default=None)
+    attendance_point = models.IntegerField(default=0)
+    mental_point = models.IntegerField(default=0)
+    collect_point = models.IntegerField(default=0)
+    midterm_point = models.IntegerField(default=0)
+    final_point = models.IntegerField(default=0)

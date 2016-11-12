@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  {% load static %}
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <link rel="stylesheet" type="text/css" href="{% static 'student_app/styles.css' %}" />
+  <title>ข้อมูลการเข้าเรียน</title>
+</head>
+<body>
+   <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+       <span class="sr-only">Toggle navigation</span>
+       <span class="icon-bar"></span>
+       <span class="icon-bar"></span>
+       <span class="icon-bar"></span>
+     </button>
+     </div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li><a href="/index">หน้าแรก</a></li>
+          <li><a href="/addstudent">เพิ่มข้อมูลนักศึกษา</a></li>
+          <li><a href="/student">ข้อมูลนักศึกษา</a></li>
+          <li class="active"><a href="/attendance">ข้อมูลการเข้าเรียน</a></li>
+          <li><a href="/scores">คะแนนของนักศึกษา</a></li>
+          <li><a href="/table">ข้อมูลนักศึกษาทั้งหมด</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="/logout">ลงชื่อออก</a></li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+     <div class="container">
+       <h2>ข้อมูลการเข้าเรียน</h2>
+       <br>
+       <form action="{% url 'student_app:findStudentAttendance' %}" method="post">
+         {% csrf_token %}
+         <div class="row">
+         <div class="form-group">
+           <label for="student_id" class="col-sm-2 control-label">รหัสนักศึกษา</label>
+           <div class="col-sm-4">
+             <input type="text" name="student_id" id="student_id"  class="form-control" placeholder="กรุณากรอกรหัสนิสิต ...">
+           </div>
+           <div class="col-sm-2">
+             <input type="submit" value="ค้นหา" class="btn btn-primary">
+           </div>
+         </div>
+         </div>
+         <br>
+
+       </form>
+      <form action="{% url 'student_app:updateAttendance' %}" method="post">
+         {% csrf_token %}
+         <h3>การเข้าเรียน/ขาดเรียน</h3>
+         <h4>{{student.student_id}}   {{student.firstname}}    {{student.lastname}}</h4>
+         <br>
+         <div class="row">
+         <div class="form-group">
+             <label class="col-sm-2 control-label">เข้าเรียน</label>
+             {% if attendance_edit == True %}
+             <div class="col-sm-1">
+             <input type="number" name="attend_times" id="attend_times"  class="form-control" value="{{attendance.attend_times}}">
+             </div>
+             {% else %}
+             <label for="attend" class="col-sm-1 control-label">{{attendance.attend_times}}</label>
+             {% endif %}
+             <label class="col-sm-1 control-label">ครั้ง</label>
+          </div>
+         </div>
+        <br>
+        <div class="row">
+         <div class="form-group">
+           <label class="col-sm-2 control-label">ขาดเรียน</label>
+           {% if attendance_edit == True %}
+           <div class="col-sm-1">
+           <input type="number" name="absent_times" id="absent_times"  class="form-control" value="{{attendance.absent_times}}">
+           </div>
+           {% else %}
+           <label for="absent" class="col-sm-1 control-label">{{attendance.absent_times}}</label>
+           {% endif %}
+           <label class="col-sm-1 control-label">ครั้ง</label>
+         </div>
+         </div>
+         <br>
+         <div class="row">
+           <div class="col-sm-4"></div>
+          <div class="form-group">
+             {% if attendance_edit == True %}
+             <button name="id" value="{{ student.student_id }}" class="btn btn-danger">ตกลง</button>
+             {% else %}
+             <button name="id" value="{{ student.student_id }}" class="btn btn-warning">แก้ไข</button>
+             {% endif %}
+          </div>
+        </div>
+      </form>
+     </div>
+
+</body>
+</html>

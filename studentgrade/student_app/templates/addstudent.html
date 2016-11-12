@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  {% load static %}
+  <link rel="stylesheet" type="text/css" href="{% static 'student_app/styles.css' %}" />
+  <title>เพิ่มข้อมูลนักศึกษา</title>
+</head>
+<body>
+   <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+       <span class="sr-only">Toggle navigation</span>
+       <span class="icon-bar"></span>
+       <span class="icon-bar"></span>
+       <span class="icon-bar"></span>
+     </button>
+     </div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li><a href="/index">หน้าแรก</a></li>
+          <li class="active"><a href="/addstudent">เพิ่มข้อมูลนักศึกษา</a></li>
+          <li><a href="/student">ข้อมูลนักศึกษา</a></li>
+          <li><a href="/attendance">ข้อมูลการเข้าเรียน</a></li>
+          <li><a href="/scores">คะแนนของนักศึกษา</a></li>
+          <li><a href="/table">ข้อมูลนักศึกษาทั้งหมด</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="/logout">ลงชื่อออก</a></li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+
+    </div><!-- /.container-fluid -->
+  </nav>
+     <div class="container">
+       <h2>กรุณาป้อนข้อมูลนักศึกษา</h2><br>
+       <form action="{% url 'student_app:insert' %}" method="POST" class="form-horizontal">
+         {% csrf_token %}
+         <div class="form-group">
+           <label for="student_id" class="col-sm-2 control-label">รหัสนักศึกษา</label>
+           <div class="col-sm-4">
+             <input type="text" name="student_id" id="student_id"  class="form-control" placeholder="กรุณากรอกรหัสนิสิต ...">
+           </div>
+         </div>
+         <div class="form-group">
+           <label  for="firstname" class="col-sm-2 control-label">ชื่อจริง</label>
+           <div class="col-sm-3">
+             <input type="text" name="firstname" id="firstname"   class="form-control" placeholder="กรุณากรอกชื่อจริง ...">
+           </div>
+           <label  for="lastname" class="col-sm-2 control-label">นามสกุล</label>
+           <div class="col-sm-3">
+             <input type="text" name="lastname" id="lastname"  class="form-control" placeholder="กรุณากรอกนามสกุล ...">
+           </div>
+         </div>
+         <div class="form-group">
+           <label  for="id_number" class="col-sm-2 control-label">เลขประจำตัวประชาชน</label>
+           <div class="col-sm-3">
+             <input type="text" name="id_number" id="id_number"   class="form-control" placeholder="กรุณากรอกเลขประจำตัวประชาชน ...">
+           </div>
+           <label  for="birthday" class="col-sm-2 control-label">วันเดือนปีเกิด</label>
+           <div class="col-sm-3">
+             <input type="date" name="birthday" id="birthday"  class="form-control">
+           </div>
+         </div>
+         <div class="form-group">
+           <label for="address" class="col-sm-2 control-label">ที่อยู่</label>
+           <div class="col-sm-4">
+             <input type="text" name="address" id="address"  class="form-control" placeholder="กรุณากรอกที่อยู่ ...">
+           </div>
+         </div>
+         <div class="form-group">
+           <label for="main_subject" class="col-sm-2 control-label">ชื่อวิชาเอก</label>
+           <div class="col-sm-4">
+             <input type="text" name="main_subject" id="main_subject"  class="form-control" placeholder="กรุณากรอกชื่อวิชาเอก ...">
+           </div>
+         </div>
+         <div class="form-group">
+           <label  for="telephone" class="col-sm-2 control-label">เบอร์โทรศัพท์</label>
+           <div class="col-sm-3">
+             <input type="text" name="telephone" id="telephone"   class="form-control" placeholder="กรุณากรอกเบอร์โทรศัพท์ ...">
+           </div>
+           <label  for="teacher_subject" class="col-sm-2 control-label">อาจารย์ประจำชั้น</label>
+           <div class="col-sm-3">
+             <input type="text" name="teacher_subject" id="teacher_subject"  class="form-control" placeholder="กรุณากรอกอาจารย์ประจำชั้น ...">
+           </div>
+         </div>
+         <div class="form-group">
+           <label  for="date_regis"  class="col-sm-2 control-label">วันที่ลงทะเบียน</label>
+           <div class="col-sm-4">
+             <input type="date" name="date_regis" id="date_regis"  class="form-control">
+           </div>
+           <label  for="section" class="col-sm-1 control-label">Sec</label>
+           <div class="col-sm-3">
+             <input type="text" name="section" id="section"  class="form-control" placeholder="กรุณากรอกหมายเลขเซค ..." >
+           </div>
+         </div>
+         <br>
+         <div class="form-group">
+           <div class="col-sm-offset-2 col-sm-10">
+             <input type="submit" value="ยืนยัน" class="btn btn-primary">
+           </div>
+         </div>
+       </form>
+     </div>
+</body>
+</html>
