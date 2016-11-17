@@ -72,12 +72,13 @@
            </div>
          </div>
          <div class="form-group">
+           <div class="row">
            <label  for="firstname" class="col-sm-2 control-label">ชื่อจริง</label>
            <div class="col-sm-3">
              {% if student_edit == True %}
              <input type="text" name="firstname" id="firstname" value="{{student.firstname}}" class="form-control" placeholder="กรุณากรอกชื่อจริง ...">
              {% else %}
-             <label class="col-sm-1 control-label">{{student.firstname}}</label>
+             <label class="control-label">{{student.firstname}}</label>
              {% endif %}
            </div>
            <label  for="lastname" class="col-sm-2 control-label">นามสกุล</label>
@@ -85,9 +86,10 @@
              {% if student_edit == True %}
              <input type="text" name="lastname" id="lastname" value="{{student.lastname}}"  class="form-control" placeholder="กรุณากรอกนามสกุล ...">
              {% else %}
-             <label class="col-sm-1 control-label">{{student.lastname}}</label>
+             <label class="control-label">{{student.lastname}}</label>
              {% endif %}
            </div>
+         </div>
          </div>
          <div class="form-group">
            <label  for="id_number" class="col-sm-2 control-label">เลขประจำตัวประชาชน</label>
@@ -95,7 +97,7 @@
              {% if student_edit == True %}
              <input type="text" name="id_number" id="id_number" value="{{student.id_number}}"  class="form-control" placeholder="กรุณากรอกเลขประจำตัวประชาชน ...">
              {% else %}
-             <label class="col-sm-1 control-label">{{student.id_number}}</label>
+             <label class="control-label">{{student.id_number}}</label>
              {% endif %}
            </div>
            <label  for="birthday" class="col-sm-2 control-label">วันเดือนปีเกิด</label>
@@ -103,7 +105,7 @@
              {% if student_edit == True %}
              <input type="date" name="birthday" id="birthday" value="{{student.birthday|date:"Y-m-d"}}"  class="form-control">
              {% else %}
-             <label class="col-sm-5 control-label">{{student.birthday}}</label>
+             <label class="control-label">{{student.birthday}}</label>
              {% endif %}
            </div>
          </div>
@@ -123,7 +125,7 @@
              {% if student_edit == True %}
              <input type="text" name="main_subject" id="main_subject" value="{{student.main_subject}}" class="form-control" placeholder="กรุณากรอกชื่อวิชาเอก ...">
              {% else %}
-             <label class="col-sm-1 control-label">{{student.main_subject}}</label>
+             <label class="control-label">{{student.main_subject}}</label>
              {% endif %}
            </div>
          </div>
@@ -133,7 +135,7 @@
              {% if student_edit == True %}
              <input type="text" name="telephone" id="telephone" value="{{student.telephone}}"  class="form-control" placeholder="กรุณากรอกเบอร์โทรศัพท์ ...">
              {% else %}
-             <label class="col-sm-1 control-label">{{student.telephone}}</label>
+             <label class="control-label">{{student.telephone}}</label>
              {% endif %}
            </div>
            <label  for="teacher_subject" class="col-sm-2 control-label">อาจารย์ประจำชั้น</label>
@@ -141,7 +143,7 @@
              {% if student_edit == True %}
              <input type="text" name="teacher_subject" id="teacher_subject" value="{{student.teacher_subject}}" class="form-control" placeholder="กรุณากรอกอาจารย์ประจำชั้น ...">
              {% else %}
-             <label class="col-sm-1 control-label">{{student.teacher_subject}}</label>
+             <label class="control-label">{{student.teacher_subject}}</label>
              {% endif %}
            </div>
          </div>
@@ -151,7 +153,7 @@
              {% if student_edit == True %}
              <input type="date" name="date_regis" id="date_regis" value="{{student.date_regis|date:"Y-m-d"}}" class="form-control">
              {% else %}
-             <label class="col-sm-4 control-label">{{student.date_regis}}</label>
+             <label class="control-label">{{student.date_regis}}</label>
              {% endif %}
            </div>
            <label  for="section" class="col-sm-1 control-label">Sec</label>
@@ -159,7 +161,7 @@
              {% if student_edit == True %}
              <input type="text" name="section" id="section" value="{{student.section}}" class="form-control" placeholder="กรุณากรอกหมายเลขเซค ..." >
              {% else %}
-             <label class="col-sm-1 control-label">{{student.section}}</label>
+             <label class="control-label">{{student.section}}</label>
              {% endif %}
            </div>
          </div>

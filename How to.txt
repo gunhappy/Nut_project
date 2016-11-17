@@ -1,0 +1,5 @@
+1. เข้าไปในโฟลเดอร์ studentgrade ที่มี manage.py
+2. กด shiftค้าง + คลิกขวา
+3. เลือก command window
+4. พิมคำสั่ง  python manage.py runserver 
+5.เปิด โครม เข้าไปที่ 127.0.0.1:8000
